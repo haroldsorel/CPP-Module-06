@@ -17,11 +17,12 @@
 class Data
 {
     private:
-        std::string _str;
+        int _num;
     public:
         Data();
-        Data(std::string &str);
-        Data(const Data &src);
+        Data(int num);
+        Data(const Data &num);
         ~Data();
-        Data &operator=(const Data &src);
+        int getNum();
+        Data &operator=(const Data &num);
 };

@@ -12,21 +12,26 @@
 
 #include "Data.hpp"
 
-Data::Data() : _str("Default")
+Data::Data() : _num(4242)
 {}
 
-Data::Data(std::string &str) : _str(str)
+Data::Data(int num) : _num(num)
 {}
 
-Data::Data(const Data &src) : _str(src._str)
+Data::Data(const Data &src) : _num(src._num)
 {}
 
 Data::~Data()
 {}
 
+int Data::getNum()
+{
+    return (this->_num);
+}
+
 Data &Data::operator=(const Data &src)
 {
     if (this != &src)
-        this->_str = src._str;
+        this->_num = src._num;
     return (*this);
 }
