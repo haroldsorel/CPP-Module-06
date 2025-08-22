@@ -15,6 +15,16 @@
 #include "B.hpp"
 #include "C.hpp"
 
+/*
+    Here dynamic cast is used because it safely converts a pointer or reference
+    to a base class into a pointer or reference to a derived class.
+
+    Checks at runtime if the cast is valid.
+    if not : 
+        If casting a pointer → returns nullptr.
+        If casting a reference → throws an exception : std::bad_cast.
+*/
+
 Base *generate(void)
 {
     Base *base;
@@ -24,21 +34,21 @@ Base *generate(void)
     {
         case 0:
             base = new A;
-            std::cout << "An A was randomly generated!" << std::endl;
+            std::cout << "A was randomly generated!" << std::endl;
             break;
         case 1:
             base = new B;
-            std::cout << "An B was randomly generated!" << std::endl;
+            std::cout << "B was randomly generated!" << std::endl;
             break;
         case 2:
             base = new C;
-            std::cout << "An C was randomly generated!" << std::endl;
+            std::cout << "C was randomly generated!" << std::endl;
             break;
     }
     return (base);
 }
 
-/* Dynamic cast used with pointers checks type at runtime and returns a null pointer if the cast fails -> not compatible. */
+/*with pointers */
 void identify(Base *p)
 {
     if (dynamic_cast<A*>(p)) 
@@ -51,7 +61,7 @@ void identify(Base *p)
         std::cout << "Unknown class" << std::endl;
 }
 
-/* Dynamic cast used with references checks type at runtime and throws an exception if the cast fails -> not compatible. */
+/*with references*/
 void identify(Base& p) {
     try 
     {
@@ -85,14 +95,14 @@ int main()
     std::cout << std::endl;
     std::cout << "--------------------------" << std::endl;
     std::cout << std::endl;
-    std::cout << "Identifying..." << std::endl;
+    std::cout << "(pointer)Identifying..." << std::endl;
     std::cout << std::endl;
     std::cout << std::endl;
     identify(abc);
     std::cout << std::endl;
     std::cout << "--------------------------" << std::endl;
     std::cout << std::endl;
-    std::cout << "Identifying..." << std::endl;
+    std::cout << "(reference)Identifying..." << std::endl;
     std::cout << std::endl;
     std::cout << std::endl;
     identify(*abc);
