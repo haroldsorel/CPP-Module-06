@@ -43,7 +43,7 @@ static void displayFromChar(std::string str)
 
     std::cout << "int: " << i << std::endl;
 
-    if (std::modff(f, &intpartf) == 0.0f && !std::isinf(f))
+    if (modff(f, &intpartf) == 0.0f && !std::isinf(f))
         std::cout << "float: " << f << ".0f" << std::endl;
     else
         std::cout << "float: " << f << "f" << std::endl;
@@ -76,7 +76,7 @@ static void displayFromInt(std::string str)
 
     std::cout << "int: " << i << std::endl;
 
-    if (std::modff(f, &intpartf) == 0.0f && !std::isinf(f))
+    if (modff(f, &intpartf) == 0.0f && !std::isinf(f))
         std::cout << "float: " << f << ".0f" << std::endl;
     else
         std::cout << "float: " << f << "f" << std::endl;
@@ -89,90 +89,82 @@ static void displayFromInt(std::string str)
 
 static void displayFromDouble(std::string str)
 {
-    double  input = stringToDouble(str);
-    int     int_overflow = false;
-    int     float_overflow = false;
+    double input = stringToDouble(str);
+    bool int_overflow = false;
+    bool float_overflow = false;
 
-    char    c = static_cast<char>(input);
-    int     i = static_cast<int>(input);
-    float   f = static_cast<float>(input);
-    double  d = static_cast<double>(input);
-    float   intpartf;
-    double  intpart;
+    char   c = static_cast<char>(input);
+    int    i = static_cast<int>(input);
+    float  f = static_cast<float>(input);
+    double d = input;
 
     if (input > std::numeric_limits<int>::max() || input < std::numeric_limits<int>::min())
         int_overflow = true;
     if (!std::isinf(input) && (input > std::numeric_limits<float>::max() || input < -std::numeric_limits<float>::max()))
         float_overflow = true;
-
     if (std::isfinite(input) && int_overflow)
-        std::cout << "char: impossible" << std::endl;
+        std::cout << "char: impossible\n";
     else if (!std::isfinite(input) || i < 0 || i > 127)
-        std::cout << "char: impossible" << std::endl;
-    else if (!(std::isprint(i)))
-        std::cout << "char: Non displayable" << std::endl;
+        std::cout << "char: impossible\n";
+    else if (!std::isprint(i))
+        std::cout << "char: Non displayable\n";
     else
-        std::cout << "char: " << c << std::endl;
-
+        std::cout << "char: '" << c << "'\n";
     if (std::isfinite(input) && int_overflow)
-        std::cout << "int: impossible" << std::endl;
-    else if (!(std::isfinite(input)))
-        std::cout << "int: impossible" << std::endl;
+        std::cout << "int: impossible\n";
+    else if (!std::isfinite(input))
+        std::cout << "int: impossible\n";
     else
-        std::cout << "int: " << i << std::endl;
-    if (float_overflow == true)
-        std::cout << "float: impossible" << std::endl;
-    else if (std::modff(f, &intpartf) == 0.0f && !std::isinf(f))
-        std::cout << "float: " << f << ".0f" << std::endl;
+        std::cout << "int: " << i << "\n";
+    if (float_overflow)
+        std::cout << "float: impossible\n";
+    else if (std::floor(f) == f && !std::isinf(f))
+        std::cout << std::fixed << std::setprecision(1) << "float: " << f << "f\n";
     else
-        std::cout << "float: " << f << "f" << std::endl;
-
-    if (std::modf(f, &intpart) == 0.0 && !std::isinf(f))
-        std::cout << "double: " << d << ".0" << std::endl;
+        std::cout << std::defaultfloat << std::setprecision(7) << "float: " << f << "f\n";
+    if (std::floor(d) == d && !std::isinf(d))
+        std::cout << std::fixed << std::setprecision(1) << "double: " << d << "\n";
     else
-        std::cout << "double: " << d << std::endl;
+        std::cout << std::defaultfloat << "double: " << d << "\n";
 }
+
 
 static void displayFromFloat(std::string str)
 {
     float input = stringToFloat(str);
     bool int_overflow = false;
 
-    char    c = static_cast<char>(input);
-    int     i = static_cast<int>(input);
-    float   f = static_cast<float>(input);
-    double  d = static_cast<double>(input);
-    float   intpartf;
-    double  intpart;
+    char   c = static_cast<char>(input);
+    int    i = static_cast<int>(input);
+    float  f = input;
+    double d = static_cast<double>(input);
 
     if (input > std::numeric_limits<int>::max() || input < std::numeric_limits<int>::min())
         int_overflow = true;
-
     if (std::isfinite(input) && int_overflow)
-        std::cout << "char: impossible" << std::endl;
+        std::cout << "char: impossible\n";
     else if (!std::isfinite(input) || i < 0 || i > 127)
-        std::cout << "char: impossible" << std::endl;
-    else if (!(std::isprint(i)))
-        std::cout << "char: Non displayable" << std::endl;
+        std::cout << "char: impossible\n";
+    else if (!std::isprint(i))
+        std::cout << "char: Non displayable\n";
     else
-        std::cout << "char: " << c << std::endl;
-
+        std::cout << "char: '" << c << "'\n";
     if (std::isfinite(input) && int_overflow)
-        std::cout << "int: impossible" << std::endl;
-    else if (!(std::isfinite(input)))
-        std::cout << "int: impossible" << std::endl;
+        std::cout << "int: impossible\n";
+    else if (!std::isfinite(input))
+        std::cout << "int: impossible\n";
     else
-        std::cout << "int: " << i << std::endl;
-    if (std::modff(f, &intpartf) == 0.0f && !std::isinf(f))
-        std::cout << "float: " << f << ".0f" << std::endl;
+        std::cout << "int: " << i << "\n";
+    if (std::floor(f) == f && !std::isinf(f))
+        std::cout << std::fixed << std::setprecision(1) << "float: " << f << "f\n";
     else
-        std::cout << "float: " << f << "f" << std::endl;
-
-    if (std::modf(f, &intpart) == 0.0 && !std::isinf(f))
-        std::cout << "double: " << d << ".0" << std::endl;
+        std::cout << std::defaultfloat << std::setprecision(7) << "float: " << f << "f\n";
+    if (std::floor(d) == d && !std::isinf(d))
+        std::cout << std::fixed << std::setprecision(1) << "double: " << d << "\n";
     else
-        std::cout << "double: " << d << std::endl;
+        std::cout << std::defaultfloat << "double: " << d << "\n";
 }
+
 
 static void displayFromError(std::string str)
 {

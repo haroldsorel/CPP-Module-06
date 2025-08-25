@@ -12,6 +12,9 @@
 
 #include <iostream>
 #include <cctype>
+#include <cmath>
+#include <limits>
+#include <iomanip>
 
 enum e_type
 {
